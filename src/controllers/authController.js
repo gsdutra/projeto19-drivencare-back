@@ -8,18 +8,18 @@ export async function singup(req, res) {
 		const passwordHash = bcrypt.hashSync(req.body.password, 10)
 		
 		if (req.body.role === 'doctor'){
-			const {name, email, role, location, specialty} = req.body
+			const {name, email, role, location, speciality} = req.body
 
 			await db.query(`INSERT INTO users 
 			(name, email, password, role, location, speciality) 
 			VALUES 
 			($1, $2, $3, $4, $5, $6)`,
-			[name, email, passwordHash, role, location, specialty])
+			[name, email, passwordHash, role, location, speciality])
 
 		}else if (req.body.role === 'patient'){
 			const {name, email, role} = req.body
 
-			await db.query(`INSERT INTO users (name, email, password, role) VALUES ('$1', '$2', '$3', '$4')`, [name, email, passwordHash, role])
+			await db.query(`INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4)`, [name, email, passwordHash, role])
 		}
 
 		res.sendStatus(200)
@@ -38,9 +38,9 @@ export async function singin(req, res) {
 
 		if (rows.length === 0) return res.sendStatus(401)
 
-		if (!bcrypt.compareSync(req.body.password, rows[0].password)) return res.sendStatus(401)
+		if (!bcrypt.compareSync(password, rows[0].password)) return res.sendStatus(401)
 
-		const token = jwt.sign({userId: rows.id}, process.env.JWT_SECRET, {expiresIn: 500})
+		const token = jwt.sign({userId: rows[0].id}, process.env.JWT_SECRET, {expiresIn: 500})
 
 		res.status(200).send({auth: true, token})
 
