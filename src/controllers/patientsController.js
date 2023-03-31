@@ -25,7 +25,11 @@ export async function getDoctors(req, res) {
 
 export async function getDoctorSchedule(req, res) {
 	try {
-		
+		const {rows} = await db.query(`
+			SELECT date FROM appointments WHERE doctor_id = $1;
+		`, [req.params.doctor_id])
+
+		res.status(200).send(rows)
 	} catch (error) {
 		res.status(500).send(error.message)
 	}
