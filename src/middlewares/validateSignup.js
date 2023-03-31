@@ -1,6 +1,6 @@
-import {signupSchema} from '../schemas/signupSchema.js';
+import { signupSchema } from '../schemas/signupSchema.js';
 
-export async function signupValidation(req, res, next) {
+export async function validateSignup(req, res, next) {
 	try {
 		const validation = signupSchema.validate(req.body, {abortEarly: true})
 
