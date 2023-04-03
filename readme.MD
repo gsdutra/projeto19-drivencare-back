@@ -2,8 +2,8 @@
 
 Appointment-requests possible statuses:
 
-1 - Pending
+1 - pending
 
-2 - Approved
+2 - approved
 
-3 - Denied
+3 - denied

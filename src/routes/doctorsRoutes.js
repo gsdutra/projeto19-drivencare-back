@@ -4,6 +4,6 @@ import {verifyJWT} from '../middlewares/verifyJWT.js'
 
 const doctorsRoutes = express.Router()
 doctorsRoutes.get('/appointment-requests', verifyJWT, getAppointmentRequests)
-doctorsRoutes.post('/process-appointment/:appointment_id/:status', verifyJWT, processAppointmentRequest)
+doctorsRoutes.post('/process-appointment', verifyJWT, processAppointmentRequest)
 
 export default doctorsRoutes
